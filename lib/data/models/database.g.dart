@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'database.dart'; 
+part of 'database.dart';
 
 // ignore_for_file: type=lint
 class $ProfilesTable extends Profiles with TableInfo<$ProfilesTable, Profile> {
@@ -1378,15 +1378,630 @@ class BorrowsCompanion extends UpdateCompanion<Borrow> {
   }
 }
 
+class $LoansTable extends Loans with TableInfo<$LoansTable, Loan> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $LoansTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _peminjamMeta =
+      const VerificationMeta('peminjam');
+  @override
+  late final GeneratedColumn<String> peminjam = GeneratedColumn<String>(
+      'peminjam', aliasedName, false,
+      additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 255),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  static const VerificationMeta _spesifikasiMeta =
+      const VerificationMeta('spesifikasi');
+  @override
+  late final GeneratedColumn<String> spesifikasi = GeneratedColumn<String>(
+      'spesifikasi', aliasedName, false,
+      additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 255),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  static const VerificationMeta _kondisiMeta =
+      const VerificationMeta('kondisi');
+  @override
+  late final GeneratedColumn<String> kondisi = GeneratedColumn<String>(
+      'kondisi', aliasedName, false,
+      additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 255),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  static const VerificationMeta _jumlahMeta = const VerificationMeta('jumlah');
+  @override
+  late final GeneratedColumn<int> jumlah = GeneratedColumn<int>(
+      'jumlah', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _jenisMeta = const VerificationMeta('jenis');
+  @override
+  late final GeneratedColumn<String> jenis = GeneratedColumn<String>(
+      'jenis', aliasedName, false,
+      additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 255),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  static const VerificationMeta _tglPinjamMeta =
+      const VerificationMeta('tglPinjam');
+  @override
+  late final GeneratedColumn<DateTime> tglPinjam = GeneratedColumn<DateTime>(
+      'tgl_pinjam', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _tglKembaliMeta =
+      const VerificationMeta('tglKembali');
+  @override
+  late final GeneratedColumn<DateTime> tglKembali = GeneratedColumn<DateTime>(
+      'tgl_kembali', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _keteranganMeta =
+      const VerificationMeta('keterangan');
+  @override
+  late final GeneratedColumn<String> keterangan = GeneratedColumn<String>(
+      'keterangan', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _stuff_idMeta =
+      const VerificationMeta('stuff_id');
+  @override
+  late final GeneratedColumn<int> stuff_id = GeneratedColumn<int>(
+      'stuff_id', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _deletedAtMeta =
+      const VerificationMeta('deletedAt');
+  @override
+  late final GeneratedColumn<DateTime> deletedAt = GeneratedColumn<DateTime>(
+      'deleted_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        peminjam,
+        spesifikasi,
+        kondisi,
+        jumlah,
+        jenis,
+        tglPinjam,
+        tglKembali,
+        keterangan,
+        stuff_id,
+        createdAt,
+        updatedAt,
+        deletedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? 'loans';
+  @override
+  String get actualTableName => 'loans';
+  @override
+  VerificationContext validateIntegrity(Insertable<Loan> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('peminjam')) {
+      context.handle(_peminjamMeta,
+          peminjam.isAcceptableOrUnknown(data['peminjam']!, _peminjamMeta));
+    } else if (isInserting) {
+      context.missing(_peminjamMeta);
+    }
+    if (data.containsKey('spesifikasi')) {
+      context.handle(
+          _spesifikasiMeta,
+          spesifikasi.isAcceptableOrUnknown(
+              data['spesifikasi']!, _spesifikasiMeta));
+    } else if (isInserting) {
+      context.missing(_spesifikasiMeta);
+    }
+    if (data.containsKey('kondisi')) {
+      context.handle(_kondisiMeta,
+          kondisi.isAcceptableOrUnknown(data['kondisi']!, _kondisiMeta));
+    } else if (isInserting) {
+      context.missing(_kondisiMeta);
+    }
+    if (data.containsKey('jumlah')) {
+      context.handle(_jumlahMeta,
+          jumlah.isAcceptableOrUnknown(data['jumlah']!, _jumlahMeta));
+    } else if (isInserting) {
+      context.missing(_jumlahMeta);
+    }
+    if (data.containsKey('jenis')) {
+      context.handle(
+          _jenisMeta, jenis.isAcceptableOrUnknown(data['jenis']!, _jenisMeta));
+    } else if (isInserting) {
+      context.missing(_jenisMeta);
+    }
+    if (data.containsKey('tgl_pinjam')) {
+      context.handle(_tglPinjamMeta,
+          tglPinjam.isAcceptableOrUnknown(data['tgl_pinjam']!, _tglPinjamMeta));
+    } else if (isInserting) {
+      context.missing(_tglPinjamMeta);
+    }
+    if (data.containsKey('tgl_kembali')) {
+      context.handle(
+          _tglKembaliMeta,
+          tglKembali.isAcceptableOrUnknown(
+              data['tgl_kembali']!, _tglKembaliMeta));
+    } else if (isInserting) {
+      context.missing(_tglKembaliMeta);
+    }
+    if (data.containsKey('keterangan')) {
+      context.handle(
+          _keteranganMeta,
+          keterangan.isAcceptableOrUnknown(
+              data['keterangan']!, _keteranganMeta));
+    } else if (isInserting) {
+      context.missing(_keteranganMeta);
+    }
+    if (data.containsKey('stuff_id')) {
+      context.handle(_stuff_idMeta,
+          stuff_id.isAcceptableOrUnknown(data['stuff_id']!, _stuff_idMeta));
+    } else if (isInserting) {
+      context.missing(_stuff_idMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(_deletedAtMeta,
+          deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Loan map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Loan(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      peminjam: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}peminjam'])!,
+      spesifikasi: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}spesifikasi'])!,
+      kondisi: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}kondisi'])!,
+      jumlah: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}jumlah'])!,
+      jenis: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}jenis'])!,
+      tglPinjam: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}tgl_pinjam'])!,
+      tglKembali: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}tgl_kembali'])!,
+      keterangan: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}keterangan'])!,
+      stuff_id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}stuff_id'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+      deletedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}deleted_at']),
+    );
+  }
+
+  @override
+  $LoansTable createAlias(String alias) {
+    return $LoansTable(attachedDatabase, alias);
+  }
+}
+
+class Loan extends DataClass implements Insertable<Loan> {
+  final int id;
+  final String peminjam;
+  final String spesifikasi;
+  final String kondisi;
+  final int jumlah;
+  final String jenis;
+  final DateTime tglPinjam;
+  final DateTime tglKembali;
+  final String keterangan;
+  final int stuff_id;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime? deletedAt;
+  const Loan(
+      {required this.id,
+      required this.peminjam,
+      required this.spesifikasi,
+      required this.kondisi,
+      required this.jumlah,
+      required this.jenis,
+      required this.tglPinjam,
+      required this.tglKembali,
+      required this.keterangan,
+      required this.stuff_id,
+      required this.createdAt,
+      required this.updatedAt,
+      this.deletedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['peminjam'] = Variable<String>(peminjam);
+    map['spesifikasi'] = Variable<String>(spesifikasi);
+    map['kondisi'] = Variable<String>(kondisi);
+    map['jumlah'] = Variable<int>(jumlah);
+    map['jenis'] = Variable<String>(jenis);
+    map['tgl_pinjam'] = Variable<DateTime>(tglPinjam);
+    map['tgl_kembali'] = Variable<DateTime>(tglKembali);
+    map['keterangan'] = Variable<String>(keterangan);
+    map['stuff_id'] = Variable<int>(stuff_id);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt);
+    }
+    return map;
+  }
+
+  LoansCompanion toCompanion(bool nullToAbsent) {
+    return LoansCompanion(
+      id: Value(id),
+      peminjam: Value(peminjam),
+      spesifikasi: Value(spesifikasi),
+      kondisi: Value(kondisi),
+      jumlah: Value(jumlah),
+      jenis: Value(jenis),
+      tglPinjam: Value(tglPinjam),
+      tglKembali: Value(tglKembali),
+      keterangan: Value(keterangan),
+      stuff_id: Value(stuff_id),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory Loan.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Loan(
+      id: serializer.fromJson<int>(json['id']),
+      peminjam: serializer.fromJson<String>(json['peminjam']),
+      spesifikasi: serializer.fromJson<String>(json['spesifikasi']),
+      kondisi: serializer.fromJson<String>(json['kondisi']),
+      jumlah: serializer.fromJson<int>(json['jumlah']),
+      jenis: serializer.fromJson<String>(json['jenis']),
+      tglPinjam: serializer.fromJson<DateTime>(json['tglPinjam']),
+      tglKembali: serializer.fromJson<DateTime>(json['tglKembali']),
+      keterangan: serializer.fromJson<String>(json['keterangan']),
+      stuff_id: serializer.fromJson<int>(json['stuff_id']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'peminjam': serializer.toJson<String>(peminjam),
+      'spesifikasi': serializer.toJson<String>(spesifikasi),
+      'kondisi': serializer.toJson<String>(kondisi),
+      'jumlah': serializer.toJson<int>(jumlah),
+      'jenis': serializer.toJson<String>(jenis),
+      'tglPinjam': serializer.toJson<DateTime>(tglPinjam),
+      'tglKembali': serializer.toJson<DateTime>(tglKembali),
+      'keterangan': serializer.toJson<String>(keterangan),
+      'stuff_id': serializer.toJson<int>(stuff_id),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+    };
+  }
+
+  Loan copyWith(
+          {int? id,
+          String? peminjam,
+          String? spesifikasi,
+          String? kondisi,
+          int? jumlah,
+          String? jenis,
+          DateTime? tglPinjam,
+          DateTime? tglKembali,
+          String? keterangan,
+          int? stuff_id,
+          DateTime? createdAt,
+          DateTime? updatedAt,
+          Value<DateTime?> deletedAt = const Value.absent()}) =>
+      Loan(
+        id: id ?? this.id,
+        peminjam: peminjam ?? this.peminjam,
+        spesifikasi: spesifikasi ?? this.spesifikasi,
+        kondisi: kondisi ?? this.kondisi,
+        jumlah: jumlah ?? this.jumlah,
+        jenis: jenis ?? this.jenis,
+        tglPinjam: tglPinjam ?? this.tglPinjam,
+        tglKembali: tglKembali ?? this.tglKembali,
+        keterangan: keterangan ?? this.keterangan,
+        stuff_id: stuff_id ?? this.stuff_id,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Loan(')
+          ..write('id: $id, ')
+          ..write('peminjam: $peminjam, ')
+          ..write('spesifikasi: $spesifikasi, ')
+          ..write('kondisi: $kondisi, ')
+          ..write('jumlah: $jumlah, ')
+          ..write('jenis: $jenis, ')
+          ..write('tglPinjam: $tglPinjam, ')
+          ..write('tglKembali: $tglKembali, ')
+          ..write('keterangan: $keterangan, ')
+          ..write('stuff_id: $stuff_id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      peminjam,
+      spesifikasi,
+      kondisi,
+      jumlah,
+      jenis,
+      tglPinjam,
+      tglKembali,
+      keterangan,
+      stuff_id,
+      createdAt,
+      updatedAt,
+      deletedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Loan &&
+          other.id == this.id &&
+          other.peminjam == this.peminjam &&
+          other.spesifikasi == this.spesifikasi &&
+          other.kondisi == this.kondisi &&
+          other.jumlah == this.jumlah &&
+          other.jenis == this.jenis &&
+          other.tglPinjam == this.tglPinjam &&
+          other.tglKembali == this.tglKembali &&
+          other.keterangan == this.keterangan &&
+          other.stuff_id == this.stuff_id &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt);
+}
+
+class LoansCompanion extends UpdateCompanion<Loan> {
+  final Value<int> id;
+  final Value<String> peminjam;
+  final Value<String> spesifikasi;
+  final Value<String> kondisi;
+  final Value<int> jumlah;
+  final Value<String> jenis;
+  final Value<DateTime> tglPinjam;
+  final Value<DateTime> tglKembali;
+  final Value<String> keterangan;
+  final Value<int> stuff_id;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<DateTime?> deletedAt;
+  const LoansCompanion({
+    this.id = const Value.absent(),
+    this.peminjam = const Value.absent(),
+    this.spesifikasi = const Value.absent(),
+    this.kondisi = const Value.absent(),
+    this.jumlah = const Value.absent(),
+    this.jenis = const Value.absent(),
+    this.tglPinjam = const Value.absent(),
+    this.tglKembali = const Value.absent(),
+    this.keterangan = const Value.absent(),
+    this.stuff_id = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+  });
+  LoansCompanion.insert({
+    this.id = const Value.absent(),
+    required String peminjam,
+    required String spesifikasi,
+    required String kondisi,
+    required int jumlah,
+    required String jenis,
+    required DateTime tglPinjam,
+    required DateTime tglKembali,
+    required String keterangan,
+    required int stuff_id,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    this.deletedAt = const Value.absent(),
+  })  : peminjam = Value(peminjam),
+        spesifikasi = Value(spesifikasi),
+        kondisi = Value(kondisi),
+        jumlah = Value(jumlah),
+        jenis = Value(jenis),
+        tglPinjam = Value(tglPinjam),
+        tglKembali = Value(tglKembali),
+        keterangan = Value(keterangan),
+        stuff_id = Value(stuff_id),
+        createdAt = Value(createdAt),
+        updatedAt = Value(updatedAt);
+  static Insertable<Loan> custom({
+    Expression<int>? id,
+    Expression<String>? peminjam,
+    Expression<String>? spesifikasi,
+    Expression<String>? kondisi,
+    Expression<int>? jumlah,
+    Expression<String>? jenis,
+    Expression<DateTime>? tglPinjam,
+    Expression<DateTime>? tglKembali,
+    Expression<String>? keterangan,
+    Expression<int>? stuff_id,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<DateTime>? deletedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (peminjam != null) 'peminjam': peminjam,
+      if (spesifikasi != null) 'spesifikasi': spesifikasi,
+      if (kondisi != null) 'kondisi': kondisi,
+      if (jumlah != null) 'jumlah': jumlah,
+      if (jenis != null) 'jenis': jenis,
+      if (tglPinjam != null) 'tgl_pinjam': tglPinjam,
+      if (tglKembali != null) 'tgl_kembali': tglKembali,
+      if (keterangan != null) 'keterangan': keterangan,
+      if (stuff_id != null) 'stuff_id': stuff_id,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+    });
+  }
+
+  LoansCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? peminjam,
+      Value<String>? spesifikasi,
+      Value<String>? kondisi,
+      Value<int>? jumlah,
+      Value<String>? jenis,
+      Value<DateTime>? tglPinjam,
+      Value<DateTime>? tglKembali,
+      Value<String>? keterangan,
+      Value<int>? stuff_id,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt,
+      Value<DateTime?>? deletedAt}) {
+    return LoansCompanion(
+      id: id ?? this.id,
+      peminjam: peminjam ?? this.peminjam,
+      spesifikasi: spesifikasi ?? this.spesifikasi,
+      kondisi: kondisi ?? this.kondisi,
+      jumlah: jumlah ?? this.jumlah,
+      jenis: jenis ?? this.jenis,
+      tglPinjam: tglPinjam ?? this.tglPinjam,
+      tglKembali: tglKembali ?? this.tglKembali,
+      keterangan: keterangan ?? this.keterangan,
+      stuff_id: stuff_id ?? this.stuff_id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (peminjam.present) {
+      map['peminjam'] = Variable<String>(peminjam.value);
+    }
+    if (spesifikasi.present) {
+      map['spesifikasi'] = Variable<String>(spesifikasi.value);
+    }
+    if (kondisi.present) {
+      map['kondisi'] = Variable<String>(kondisi.value);
+    }
+    if (jumlah.present) {
+      map['jumlah'] = Variable<int>(jumlah.value);
+    }
+    if (jenis.present) {
+      map['jenis'] = Variable<String>(jenis.value);
+    }
+    if (tglPinjam.present) {
+      map['tgl_pinjam'] = Variable<DateTime>(tglPinjam.value);
+    }
+    if (tglKembali.present) {
+      map['tgl_kembali'] = Variable<DateTime>(tglKembali.value);
+    }
+    if (keterangan.present) {
+      map['keterangan'] = Variable<String>(keterangan.value);
+    }
+    if (stuff_id.present) {
+      map['stuff_id'] = Variable<int>(stuff_id.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<DateTime>(deletedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LoansCompanion(')
+          ..write('id: $id, ')
+          ..write('peminjam: $peminjam, ')
+          ..write('spesifikasi: $spesifikasi, ')
+          ..write('kondisi: $kondisi, ')
+          ..write('jumlah: $jumlah, ')
+          ..write('jenis: $jenis, ')
+          ..write('tglPinjam: $tglPinjam, ')
+          ..write('tglKembali: $tglKembali, ')
+          ..write('keterangan: $keterangan, ')
+          ..write('stuff_id: $stuff_id, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDb extends GeneratedDatabase {
   _$AppDb(QueryExecutor e) : super(e);
   late final $ProfilesTable profiles = $ProfilesTable(this);
   late final $GoodsTable goods = $GoodsTable(this);
   late final $BorrowsTable borrows = $BorrowsTable(this);
+  late final $LoansTable loans = $LoansTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [profiles, goods, borrows];
+      [profiles, goods, borrows, loans];
 }

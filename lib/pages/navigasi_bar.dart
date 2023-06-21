@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_ops/pages/tambah_pinjam.dart';
 // import 'package:stock_ops/beranda.dart';
 import '../home/profile_page.dart';
 import 'beranda.dart';
@@ -9,7 +10,9 @@ import 'transaksi_pinjam.dart';
 
 class BottomBar extends StatefulWidget {
   final int currentPage;
-  const BottomBar({super.key, required this.currentPage});
+  final int? id_profil;
+  const BottomBar(
+      {super.key, required this.currentPage, required this.id_profil});
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -26,14 +29,15 @@ class _BottomBarState extends State<BottomBar> {
       if (selectedPage == 0) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Beranda()),
+          MaterialPageRoute(
+              builder: (context) => Beranda(id_profil: widget.id_profil)),
         );
       } else if (selectedPage == 1) {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) {
-              return const TransaksiPinjam();
+              return const TambahPinjam();
             },
           ),
         );

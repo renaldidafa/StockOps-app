@@ -95,6 +95,7 @@ class DetilPinjam extends StatelessWidget {
       ),
       bottomNavigationBar: BottomBar(
         currentPage: currentPageIndex,
+        id_profil: null,
       ),
     );
   }

@@ -122,7 +122,7 @@ class _TransaksiPinjamState extends State<TransaksiPinjam> {
         ),
       ),
       bottomNavigationBar: BottomBar(
-        currentPage: currentPageIndex,
+        currentPage: currentPageIndex, id_profil: null,
       ),
     );
   }

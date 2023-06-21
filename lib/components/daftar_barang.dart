@@ -22,8 +22,19 @@ class _CardBarangState extends State<CardBarang> {
   }
 
   @override
-  Widget build(BuildContext context) { 
-    // print(countStuff());
+  Widget build(BuildContext context) {
+    // untuk melihat hasil dari list
+    // melakukan debug
+    getAllStuff().then((listOfStuff) {
+      // Menampilkan semua nilai pada listOfStuff
+      for (var stuff in listOfStuff) {
+        print(stuff.id);
+      }
+    }).catchError((error) {
+      // Menangani error jika terjadi
+      print('Terjadi error: $error');
+    });
+
     return FutureBuilder<List<Stuff>>(
       future: getAllStuff(),
       builder: (context, snapshot) {

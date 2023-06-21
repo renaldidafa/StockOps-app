@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:stock_ops/pages/beranda.dart';
 import 'package:stock_ops/theme/theme.dart';
+
+import '../data/models/database.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,12 +12,35 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // memanggil database
+  final AppDb database = AppDb();
+
+  // memanggil tabel profile atau mungkin fetching
+  Future<List<Profile>> getAllProfile() async {
+    return await database.getAllProfileRepo();
+  }
+
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   bool _isPasswordVisible = false;
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
+  int? idProfil;
   @override
   Widget build(BuildContext context) {
+    // untuk melihat hasil dari list pada tabel  profiles
+    // melakukan debug
+    getAllProfile().then((listOfProfiles) {
+      // menampilkan semua nilai pada listOfStuff
+      for (var profile in listOfProfiles) {
+        print(profile);
+      }
+    }).catchError((error) {
+      print('Terjadi error : $error');
+    });
+
     Widget textTop() {
       return SizedBox(
         width: double.infinity,
@@ -112,26 +138,81 @@ class _LoginPageState extends State<LoginPage> {
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
-              // Lakukan validasi login dengan mengirimkan data username dan password ke backend atau melakukan pengecekan secara lokal.
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/beranda-page', (route) => false);
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Berhasil Login'),
-                    content: const Text('keren'),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('Tutup'),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+              getAllProfile().then((listOfProfiles) {
+                bool isUsernameValid = false;
+                bool isPasswordValid = false;
+
+                for (var profile in listOfProfiles) {
+                  // Cek jika username ada pada database
+                  if (_username == profile.username) {
+                    isUsernameValid = true;
+                    // cek password yang ada pada username tersebut
+                    if (_password == profile.password) {
+                      isPasswordValid = true;
+                      break;
+                    }
+                  }
+                }
+
+                if (isUsernameValid && isPasswordValid) {
+                  Profile? validatedProfile;
+                  for (var profile in listOfProfiles) {
+                    if (_username == profile.username) {
+                      validatedProfile = profile;
+                      break;
+                    }
+                  }
+
+                  if (validatedProfile != null) {
+                    idProfil = validatedProfile.id;
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Beranda(id_profil: idProfil!),
                       ),
-                    ],
+                      (route) => false,
+                    );
+
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Berhasil Login'),
+                          content: const Text('Selamat datang!'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('Tutup'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Gagal Login'),
+                        content: const Text('Username atau password salah'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('Tutup'),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   );
-                },
-              );
+                }
+              }).catchError((error) {
+                print('Terjadi error: $error');
+              });
             }
           },
           child: Text(

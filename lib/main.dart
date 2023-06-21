@@ -26,11 +26,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const SplashPage(),
-        // path alim
-        '/beranda-page': (context) => Beranda(),
+
+        // '/beranda-page': (context) => Beranda(id_profil: Null,),
         '/detilPinjam-page': (context) => const DetilPinjam(),
         '/transaksiPinjam-page': (context) => const TransaksiPinjam(),
-        // end path alim
+
         '/home-page': (context) => const MainPage(),
         '/login-page': (context) => const LoginPage(),
         '/register-page': (context) => const RegistrasiPage(),

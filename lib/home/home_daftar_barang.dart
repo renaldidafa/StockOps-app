@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stock_ops/components/daftar_barang.dart';
+// import 'package:stock_ops/pages/beranda.dart';
 import 'package:stock_ops/theme/theme.dart';
 
 class HomeDaftarBarangPage extends StatelessWidget {
@@ -18,7 +19,9 @@ class HomeDaftarBarangPage extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/beranda-page');
+            // must resolve
+            Navigator.pop(context);
+            // specific path
           },
           icon: Icon(
             Icons.arrow_back_ios,

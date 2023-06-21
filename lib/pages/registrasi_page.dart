@@ -18,24 +18,37 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
 
   // Insert data
   // Membuat textEditingController untuk mengambil inputan dari user
-  TextEditingController username = TextEditingController();
-  TextEditingController nama_depan = TextEditingController();
-  TextEditingController nama_belakang = TextEditingController();
-  TextEditingController tgl_lahir = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController nama_depanController = TextEditingController();
+  TextEditingController nama_belakangController = TextEditingController();
+  TextEditingController tgl_lahirController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   // akhir dari controller
 
-  // melakukan insert kedalam database 
+  // melakukan insert kedalam database
   Future insert(String username, String nama_depan, String nama_belakang,
       String tgl_lahir, String email, String password) async {
     final createdAt = DateTime.now();
     final updatedAt = DateTime.now();
+    final DateTime parsedTglLahir = DateTime.parse(tgl_lahir as String);
+    final row = await database.into(database.profiles).insertReturning(
+          ProfilesCompanion.insert(
+              username: username,
+              nama_depan: nama_depan,
+              nama_belakang: nama_belakang,
+              tgl_lahir: parsedTglLahir,
+              email: email,
+              password: password,
+              createdAt: createdAt,
+              updatedAt: updatedAt),
+        );
+    print(row);
   }
 
   //bikin variabel datetime untuk bikin dinamis text tanggal
-  DateTime _dateTime = DateTime.now();
+  // DateTime _dateTime = DateTime.now();
 
   // fungsi untuk menampilkan tanggal
   void _showDatePicker() {
@@ -47,17 +60,20 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
     ).then((value) {
       if (value != null) {
         setState(() {
-          _dateTime = value;
+          tgl_lahirController.text = value.toString();
         });
       }
     });
   }
 
   // fungsi untuk merapihkan tulisan format tanggal hari,tanggal hari,bulan dan tahun
-  String _formatDateTime(DateTime dateTime) {
-    final formattedDate =
-        DateFormat('EEEE, dd MMMM yyyy', 'id_ID').format(dateTime);
-    return formattedDate;
+  String _formatDateTime(DateTime? dateTime) {
+    if (dateTime != null) {
+      final formattedDate =
+          DateFormat('EEEE, dd MMMM yyyy', 'id_ID').format(dateTime);
+      return formattedDate;
+    }
+    return ' ';
   }
 
   bool _isPasswordVisible = false;
@@ -104,6 +120,7 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
           borderRadius: BorderRadius.circular(5),
         ),
         child: TextFormField(
+          controller: usernameController,
           textAlignVertical: TextAlignVertical.center,
           decoration: const InputDecoration(
             hintText: 'Username',
@@ -134,6 +151,7 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
           borderRadius: BorderRadius.circular(5),
         ),
         child: TextFormField(
+          controller: nama_depanController,
           textAlignVertical: TextAlignVertical.center,
           decoration: const InputDecoration(
             hintText: 'Nama Depan',
@@ -164,6 +182,7 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
           borderRadius: BorderRadius.circular(5),
         ),
         child: TextFormField(
+          controller: nama_belakangController,
           textAlignVertical: TextAlignVertical.center,
           decoration: const InputDecoration(
             hintText: 'Nama Belakang',
@@ -194,11 +213,21 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
         child: Row(
           children: [
             Expanded(
-              child: Text(
-                _formatDateTime(_dateTime),
+              child: TextFormField(
+                controller: tgl_lahirController,
+                readOnly: true,
                 style: primaryTextStyle.copyWith(
                     fontSize: 14, fontWeight: FontWeight.w400),
+                decoration: const InputDecoration(
+                  hintText: 'Tanggal Lahir',
+                  border: InputBorder.none,
+                ),
               ),
+              // child: Text(
+              //   _formatDateTime(tgl_lahirController as DateTime?),
+              //   style: primaryTextStyle.copyWith(
+              //       fontSize: 14, fontWeight: FontWeight.w400),
+              // ),
             ),
             IconButton(
               onPressed: _showDatePicker,
@@ -221,6 +250,7 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
           borderRadius: BorderRadius.circular(5),
         ),
         child: TextFormField(
+          controller: emailController,
           textAlignVertical: TextAlignVertical.center,
           decoration: const InputDecoration(
             hintText: 'Email',
@@ -247,6 +277,8 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
           borderRadius: BorderRadius.circular(5),
         ),
         child: TextFormField(
+          // Controller untuk password
+          controller: passwordController,
           obscureText: !_isPasswordVisible,
           onChanged: (value) {
             setState(() {
@@ -281,50 +313,7 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
         ),
       );
     }
-
-    Widget inputKonfirPass() {
-      return Container(
-        margin: const EdgeInsets.only(top: 9),
-        decoration: BoxDecoration(
-          color: bgcolor2,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: TextFormField(
-          obscureText: !_isPasswordKonfirVisible,
-          onChanged: (value) {
-            setState(() {
-              _konfirmPassword = value;
-            });
-          },
-          decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 19, vertical: 16),
-            hintText: 'Konfirmasi Password',
-            border: InputBorder.none,
-            suffixIcon: IconButton(
-              onPressed: () {
-                setState(() {
-                  _isPasswordKonfirVisible = !_isPasswordKonfirVisible;
-                });
-              },
-              icon: _isPasswordKonfirVisible
-                  ? const Icon(Icons.visibility)
-                  : const Icon(Icons.visibility_off),
-            ),
-          ),
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'Please enter your konfirmasi password';
-            }
-            return null;
-          },
-          onSaved: (value) {
-            _konfirmPassword = value!;
-          },
-        ),
-      );
-    }
-
+    
     Widget button() {
       return Container(
         width: double.infinity,
@@ -337,6 +326,14 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
+              // melakukan input data
+              insert(
+                  usernameController.text,
+                  nama_depanController.text,
+                  nama_belakangController.text,
+                  tgl_lahirController.text,
+                  emailController.text,
+                  passwordController.text);
               // Lakukan validasi login dengan mengirimkan data username dan password ke backend atau melakukan pengecekan secara lokal.
               Navigator.pushNamed(context, '/login-page');
               showDialog(
@@ -387,7 +384,7 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
                     inputTanggalLahir(),
                     inputEmail(),
                     inputPassword(),
-                    inputKonfirPass(),
+                    // inputKonfirPass(),
                   ],
                 ),
               ),
